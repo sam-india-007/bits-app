@@ -1,0 +1,27 @@
+{% extends 'bitsapp/index.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+	<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
+		<div class="content">
+			<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					<header class="major">
+						<h1><b>Ask your question </b></h1>
+					</header>
+					<p>{{ form|crispy }}</p>
+				</fieldset>
+				<br>
+				<div class="form-group">
+					<button class="button" type="submit">Publish</button>
+
+				</div>
+			</form>
+		</div>
+		<div class="image">
+			<img src=" {% static 'images/spotlight01.jpg' %} " alt="" />
+		</div>
+	</section>
+{% endblock %}

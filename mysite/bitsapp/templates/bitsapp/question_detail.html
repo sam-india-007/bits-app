@@ -1,0 +1,46 @@
+{% extends 'bitsapp/index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- to change -->
+	<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+		<div class="content">
+			<h1>{{ question.title }}</h1>
+			<p>Asked by: {{ question.author.first_name }}</p>
+			<p>{{ question.text }}</p>
+			
+			{% if user.is_authenticated %}
+			  <form action="{% url 'bitsapp:question_like' question.id %}" method="POST">
+				{% csrf_token %}
+
+				{% if post_is_liked %}
+				<button type="submit" name="ques_id" value="{{question.id}}" class="btn btn-info">Unlike</button>
+				{% else %}
+				<button type="submit" name="ques_id" value="{{question.id}}" class="btn btn-info">Like</button>
+				{% endif %}
+			  </form>
+			
+			{% endif %}
+			<p>{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</p>
+			
+			<ul class="actions stacked">
+				<li><a href="{% url 'bitsapp:answer' pk=question.pk %}" class="button">Answer</a></li>
+			</ul>
+			{% for a in ans %}
+				<section class="spotlight style1 orient-right">
+					<div class="content">
+						<p>Answered by: {{ a.author.first_name }}</p>
+						<p>{{ a.ans }}</p>
+						
+					</div>
+					
+				</section>
+			{% endfor %}
+			
+		</div>
+		<div class="image">
+			<img src=" {% static 'images/banner.jpg' %} " alt="" />
+		</div>
+	</section>
+	
+{% endblock %}

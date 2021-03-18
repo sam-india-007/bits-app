@@ -1,0 +1,45 @@
+{% extends 'bitsapp/index.html' %}
+{% load static %}
+
+{% block content %}
+	<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+		<div class="content">
+			<h1>BITS App</h1>
+			{% if user.is_authenticated %}
+				<p class="major">Post and Answer away!</p>
+				<ul class="actions stacked">
+					<li><a href="/postQ" class="button big wide smooth-scroll-middle">Post A Question</a></li>
+					<li><a href="{% url 'bitsapp:profile' pk=user.pk %}" class="button">View Profile</a></li>
+					<li><a href="/logout" class="button big wide smooth-scroll-middle">Logout</a></li>
+					
+				</ul>
+			{% else %}
+				<p class="major">You need to login</p>
+				<ul class="actions stacked">
+					<li><a href="/login" class="button big wide smooth-scroll-middle">Login</a></li>
+				</ul>
+			{% endif %}
+			
+		</div>
+		<div class="image">
+			<img src=" {% static 'images/banner.jpg' %} " alt="" />
+		</div>
+	</section>
+	{% if user.is_authenticated %}
+		{% for question in questions %}
+			<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
+				<div class="content">
+					<h2>{{ question.title }}</h2>
+					<p>{{ question.text }}</p>
+					<p>{{ question.number_of_likes }} Like{{ question.number_of_likes|pluralize }}</p>
+					<ul class="actions stacked">
+						<li><a href="{% url 'bitsapp:view_answer' pk=question.pk %}" class="button">View More</a></li>
+					</ul>
+				</div>
+				<div class="image">
+					<img src=" {% static 'images/spotlight01.jpg' %} " alt="" />
+				</div>
+			</section>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

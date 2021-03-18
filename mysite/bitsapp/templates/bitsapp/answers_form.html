@@ -1,0 +1,29 @@
+{% extends 'bitsapp/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- to change -->
+	<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+		<div id = "main" class="content">
+			<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					<header class="major">
+						<h1>Answer</h1>
+					</header>
+					{{ form|crispy }}
+				</fieldset>
+				<br>
+				<div class="form-group">
+					<button class="button" type="submit">Answer</button>
+
+				</div>
+			</form>
+		</div>
+		<div class="image">
+			<img src=" {% static 'images/banner.jpg' %} " alt="" />
+		</div>
+	</section>
+	
+{% endblock %}
